@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How we verify a row — OpenFilings</title>
+<meta name="description" content="The source-link-per-row method, the sample audits and their measured results, what the snapshot date means, how a file ages, and what we deliberately do not do.">
+<meta name="color-scheme" content="dark">
+<style>
+:root{
+  --ink:#0E1420; --panel:#151C2A; --paper:#F5F7FA; --muted:#97A1AE;
+  --rule:rgba(245,247,250,.16); --amber:#F4B23E; --teal:#4CC9B0;
+  --accent:var(--paper);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--paper)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.015em;margin:0}
+h1{font-size:2rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+p{margin:.75rem 0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+
+/* mark */
+.mark{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.05rem;letter-spacing:.01em}
+.mark .sq{width:.9rem;height:.9rem;background:var(--amber);flex:0 0 auto}
+
+/* hero */
+header.hero{padding:2rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.hero h1{margin:1.75rem 0 0;max-width:22ch}
+.hero .lede{font-size:1.0625rem;max-width:62ch;color:var(--paper)}
+.hero .src{max-width:62ch}
+
+/* sections */
+section{padding:2.5rem 0;border-bottom:1px solid var(--rule)}
+section>.wrap>h2{max-width:24ch}
+
+/* product cards */
+.card{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);margin:0 0 1.5rem}
+.card.b01{--accent:var(--amber)}
+.card.b03{--accent:var(--teal)}
+.card .body{padding:1.25rem}
+.card h2{color:var(--accent)}
+.card .kicker{font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem}
+.motif{display:block;width:100%;height:auto}
+ul.gets{list-style:none;padding:0;margin:1rem 0 0}
+ul.gets li{position:relative;padding-left:1.4rem;margin:.6rem 0}
+ul.gets li::before{content:"";position:absolute;left:0;top:.55rem;width:.55rem;height:.55rem;background:var(--accent)}
+.caveat{border-left:3px solid var(--muted);padding:.1rem 0 .1rem .85rem;margin:1.25rem 0 0;color:var(--muted);font-size:.9375rem}
+
+/* price bands */
+.bands{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0 0;padding:0;list-style:none}
+.band{display:flex;align-items:center;gap:.9rem;padding:.75rem .9rem;border:1px solid var(--rule);background:var(--ink);text-decoration:none;color:var(--paper)}
+.band:hover,.band:focus-visible{border-color:var(--accent)}
+.band .letter{font-weight:700;font-size:1.25rem;color:var(--accent);width:1.2rem;flex:0 0 auto}
+.band .price{font-weight:700;font-size:1.125rem;width:3.2rem;flex:0 0 auto}
+.band .what{font-size:.875rem;color:var(--muted);flex:1 1 auto}
+
+details{margin:1.25rem 0 0;border-top:1px solid var(--rule);padding-top:.85rem}
+summary{cursor:pointer;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+details ol{font-size:.875rem;color:var(--muted);padding-left:1.2rem;margin:.85rem 0 0}
+details li{margin:.5rem 0}
+
+/* buttons */
+.btn{display:inline-block;padding:.8rem 1.4rem;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;border:2px solid var(--amber)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--amber)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--rule)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--paper);color:var(--paper)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 0}
+
+/* verify */
+dl.verify{margin:1.25rem 0 0}
+dl.verify dt{font-weight:700;margin:1rem 0 .2rem}
+dl.verify dd{margin:0;color:var(--muted);font-size:.9375rem}
+code{font-family:var(--mono);font-size:.875em;background:var(--panel);padding:.1em .35em;border:1px solid var(--rule)}
+
+/* faq */
+.faq{margin:1.25rem 0 0}
+.faq h3{text-transform:none;letter-spacing:-.01em;font-size:1.0625rem;margin:1.5rem 0 .2rem}
+.faq p{color:var(--muted);font-size:.9375rem;margin:.3rem 0 0;max-width:70ch}
+
+footer{padding:2.5rem 0 3.5rem;color:var(--muted);font-size:.875rem}
+footer p{max-width:75ch}
+footer a{color:var(--muted)}
+
+@media (min-width:44rem){
+  h1{font-size:3rem}
+  h2{font-size:2rem}
+  .card .body{padding:2rem}
+  .bands{grid-template-columns:repeat(3,1fr)}
+  .band{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .band .what{font-size:.8125rem}
+  header.hero{padding:3rem 0 3.5rem}
+  section{padding:3.5rem 0}
+}
+
+/* guides */
+.crumb{font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 0}
+.crumb a{color:var(--muted)}
+article.guide{padding:2.5rem 0}
+article.guide h2{font-size:1.25rem;margin:2rem 0 .35rem;max-width:34ch}
+article.guide p{max-width:70ch}
+article.guide ul{max-width:70ch;padding-left:1.2rem}
+article.guide li{margin:.45rem 0}
+.tablewrap{overflow-x:auto;margin:1.25rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;background:var(--panel)}
+th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.links{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);padding:1.25rem;margin:2.5rem 0 0}
+.links h3{margin:0 0 .35rem}
+.links p{margin:.35rem 0}
+.links + .links{margin-top:1rem}
+.guidelist{list-style:none;padding:0;margin:1.5rem 0 0}
+.guidelist li{border-top:1px solid var(--rule);padding:1.1rem 0}
+.guidelist a{font-weight:700;font-size:1.0625rem;text-decoration:none;letter-spacing:-.01em}
+.guidelist a:hover{text-decoration:underline}
+.guidelist p{margin:.3rem 0 0;color:var(--muted);font-size:.9375rem;max-width:70ch}
+@media (min-width:44rem){article.guide h2{font-size:1.5rem}.links{padding:2rem}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p class="crumb"><a href="../">Home</a> · <a href="./">Guides</a></p>
+    <h1>How we verify a row</h1>
+    <p class="lede">Nothing here has to be taken on trust. Every row carries the identifier that resolves it on the public record, and the audits are numbers, not adjectives.</p>
+    <p class="src muted">Audit results measured 2026-09-07 on the shipped 2026-09-07 build of both file sets.</p>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <article class="guide b01">
+
+      <h2>One rule: a row you cannot check is a row we should not sell</h2>
+      <p>Both of our datasets are compiled from filings that anyone can read. So every row we publish carries the identifiers that take you back to the filing it came from, and we test that path on a random sample before a file ships.</p>
+
+      <h2>The source link per row</h2>
+      <p>Each federal contract row carries a link column pointing at that award's official page, plus the award id, the incumbent, the agency and office, both end dates and the industry code as recorded. Before shipping, 25 rows drawn at random from the build are fetched from the official award interface and compared field by field on the award id, the incumbent name, the current end date and the industry code. On the 2026-09-07 build, 25 of 25 matched on all four.</p>
+      <p>Each foundation row carries its EIN, the return id and the name of the archive posting the return came from. Three checks run against those. 25 grant rows are re-read from the source return XML and compared on funder EIN, recipient, purpose, amount and tax period: 25 of 25 matched. 10 funders are checked against a public nonprofit record for state and name: 10 of 10 matched. And the grant lines are summed against the total the foundation itself reported: 786 of 786 filers checked reconciled.</p>
+
+      <h2>Snapshot dates, and what ageing does</h2>
+      <p>A file is a photograph, not a feed. Every row carries the snapshot date, and the source archive it was built from is named on the file and on the listing.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>File</th><th>Snapshot</th><th>Source</th><th>Provenance carried on every row</th></tr></thead>
+        <tbody>
+          <tr><td>Expiring federal contracts</td><td>2026-09-07</td><td>Published monthly award archive dated 2026-08-06</td><td>Award id, official award page link, both end dates, days remaining, snapshot date</td></tr>
+          <tr><td>Foundation funders</td><td>2026-09-07</td><td>15 e-file archive postings, each pinned by hash</td><td>EIN, return id, source archive, tax period end, snapshot date</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Contract rows age visibly. Thirty days after the snapshot no row in the main sheets has expired, because the window starts at 31 days. Sixty days after it, 26,579 of 188,740 rows (14.1%) have passed their end date. That is why the snapshot and archive dates are printed on the listing and why a file older than a month gets rebuilt before it is offered.</p>
+      <p>End dates also move. Agencies modify contracts after an archive is published, so a row is accurate as of its archive date and the official page is the current answer. The link on the row is how you get to it.</p>
+
+      <h2>What we do not do</h2>
+      <ul>
+        <li>We do not append contacts. The only phone, website or application contact in a foundation row is one the foundation printed on its own return. No email column, no officer addresses, no purchased or enriched contact data.</li>
+        <li>We do not correct a filer's numbers. If a foundation reported a figure oddly, the file reproduces it and the reconciliation count tells you how often the lines and the total disagree.</li>
+        <li>We do not include subawards, agency forecasts, or predictions about which contracts will be recompeted.</li>
+        <li>We do not score, rank or match rows to your capabilities.</li>
+        <li>We do not run alerts or subscriptions. A refresh is a new dated file with a new snapshot date.</li>
+        <li>We claim no endorsement. The sources are public-domain federal filings; no agency produced, reviewed or approved these files, and no agency trademark, logo or seal is used.</li>
+      </ul>
+      <p>Where a number is unknown, it stays unknown. We publish no estimate of how many paper-filing foundations are missing, because we have not measured it.</p>
+
+      <div class="links">
+        <h3>Free sample</h3>
+        <p>Three sample files download straight from this site, no account and no email: <a href="../samples/expiring_541512_sample.csv">expiring_541512_sample.csv</a>, <a href="../samples/funders_VT_sample.csv">funders_VT_sample.csv</a>, <a href="../samples/grants_VT_sample.csv">grants_VT_sample.csv</a>.</p>
+      </div>
+      <div class="links">
+        <h3>The full file</h3>
+        <p>Expiring federal contracts, one industry code per file: <a href="https://payhip.com/b/batV9">$29</a> · <a href="https://payhip.com/b/TWj1w">$49</a> · <a href="https://payhip.com/b/oA5Sa">$79</a>. Foundation funders, one state per file: <a href="https://payhip.com/b/0Uaq7">$29</a> · <a href="https://payhip.com/b/MtaKk">$49</a> · <a href="https://payhip.com/b/eP8iV">$79</a>. Snapshot 2026-09-07.</p>
+      </div>
+
+    </article>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p><a href="../">Home</a> · <a href="./">All guides</a> · Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a></p>
+    <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</p>
+  </div>
+</footer>
+
+</body>
+</html>

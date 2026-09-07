@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to find private foundations that fund in your state — OpenFilings</title>
+<meta name="description" content="990-PF basics, what preselected-only means with the measured share, e-filed versus paper coverage, mailing state versus giving state, and how to verify a funder on the public record.">
+<meta name="color-scheme" content="dark">
+<style>
+:root{
+  --ink:#0E1420; --panel:#151C2A; --paper:#F5F7FA; --muted:#97A1AE;
+  --rule:rgba(245,247,250,.16); --amber:#F4B23E; --teal:#4CC9B0;
+  --accent:var(--paper);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--paper)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.015em;margin:0}
+h1{font-size:2rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+p{margin:.75rem 0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+
+/* mark */
+.mark{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.05rem;letter-spacing:.01em}
+.mark .sq{width:.9rem;height:.9rem;background:var(--amber);flex:0 0 auto}
+
+/* hero */
+header.hero{padding:2rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.hero h1{margin:1.75rem 0 0;max-width:22ch}
+.hero .lede{font-size:1.0625rem;max-width:62ch;color:var(--paper)}
+.hero .src{max-width:62ch}
+
+/* sections */
+section{padding:2.5rem 0;border-bottom:1px solid var(--rule)}
+section>.wrap>h2{max-width:24ch}
+
+/* product cards */
+.card{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);margin:0 0 1.5rem}
+.card.b01{--accent:var(--amber)}
+.card.b03{--accent:var(--teal)}
+.card .body{padding:1.25rem}
+.card h2{color:var(--accent)}
+.card .kicker{font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem}
+.motif{display:block;width:100%;height:auto}
+ul.gets{list-style:none;padding:0;margin:1rem 0 0}
+ul.gets li{position:relative;padding-left:1.4rem;margin:.6rem 0}
+ul.gets li::before{content:"";position:absolute;left:0;top:.55rem;width:.55rem;height:.55rem;background:var(--accent)}
+.caveat{border-left:3px solid var(--muted);padding:.1rem 0 .1rem .85rem;margin:1.25rem 0 0;color:var(--muted);font-size:.9375rem}
+
+/* price bands */
+.bands{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0 0;padding:0;list-style:none}
+.band{display:flex;align-items:center;gap:.9rem;padding:.75rem .9rem;border:1px solid var(--rule);background:var(--ink);text-decoration:none;color:var(--paper)}
+.band:hover,.band:focus-visible{border-color:var(--accent)}
+.band .letter{font-weight:700;font-size:1.25rem;color:var(--accent);width:1.2rem;flex:0 0 auto}
+.band .price{font-weight:700;font-size:1.125rem;width:3.2rem;flex:0 0 auto}
+.band .what{font-size:.875rem;color:var(--muted);flex:1 1 auto}
+
+details{margin:1.25rem 0 0;border-top:1px solid var(--rule);padding-top:.85rem}
+summary{cursor:pointer;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+details ol{font-size:.875rem;color:var(--muted);padding-left:1.2rem;margin:.85rem 0 0}
+details li{margin:.5rem 0}
+
+/* buttons */
+.btn{display:inline-block;padding:.8rem 1.4rem;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;border:2px solid var(--amber)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--amber)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--rule)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--paper);color:var(--paper)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 0}
+
+/* verify */
+dl.verify{margin:1.25rem 0 0}
+dl.verify dt{font-weight:700;margin:1rem 0 .2rem}
+dl.verify dd{margin:0;color:var(--muted);font-size:.9375rem}
+code{font-family:var(--mono);font-size:.875em;background:var(--panel);padding:.1em .35em;border:1px solid var(--rule)}
+
+/* faq */
+.faq{margin:1.25rem 0 0}
+.faq h3{text-transform:none;letter-spacing:-.01em;font-size:1.0625rem;margin:1.5rem 0 .2rem}
+.faq p{color:var(--muted);font-size:.9375rem;margin:.3rem 0 0;max-width:70ch}
+
+footer{padding:2.5rem 0 3.5rem;color:var(--muted);font-size:.875rem}
+footer p{max-width:75ch}
+footer a{color:var(--muted)}
+
+@media (min-width:44rem){
+  h1{font-size:3rem}
+  h2{font-size:2rem}
+  .card .body{padding:2rem}
+  .bands{grid-template-columns:repeat(3,1fr)}
+  .band{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .band .what{font-size:.8125rem}
+  header.hero{padding:3rem 0 3.5rem}
+  section{padding:3.5rem 0}
+}
+
+/* guides */
+.crumb{font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 0}
+.crumb a{color:var(--muted)}
+article.guide{padding:2.5rem 0}
+article.guide h2{font-size:1.25rem;margin:2rem 0 .35rem;max-width:34ch}
+article.guide p{max-width:70ch}
+article.guide ul{max-width:70ch;padding-left:1.2rem}
+article.guide li{margin:.45rem 0}
+.tablewrap{overflow-x:auto;margin:1.25rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;background:var(--panel)}
+th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.links{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);padding:1.25rem;margin:2.5rem 0 0}
+.links h3{margin:0 0 .35rem}
+.links p{margin:.35rem 0}
+.links + .links{margin-top:1rem}
+.guidelist{list-style:none;padding:0;margin:1.5rem 0 0}
+.guidelist li{border-top:1px solid var(--rule);padding:1.1rem 0}
+.guidelist a{font-weight:700;font-size:1.0625rem;text-decoration:none;letter-spacing:-.01em}
+.guidelist a:hover{text-decoration:underline}
+.guidelist p{margin:.3rem 0 0;color:var(--muted);font-size:.9375rem;max-width:70ch}
+@media (min-width:44rem){article.guide h2{font-size:1.5rem}.links{padding:2rem}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p class="crumb"><a href="../">Home</a> · <a href="./">Guides</a></p>
+    <h1>How to find private foundations that fund in your state</h1>
+    <p class="lede">The state cut is a mailing address and most foundations do not read applications. Both are knowable before you spend a week on a list.</p>
+    <p class="src muted">Every figure below was measured on 2026-09-07 over e-filed 990-PF returns posted in 15 federal archives, and over the files we build from them.</p>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <article class="guide b03">
+
+      <h2>What a 990-PF is</h2>
+      <p>A private foundation files an annual information return, the 990-PF. It is a public document. Part XV lists the grants it paid, one line each with recipient, city, state, purpose and amount, and it also holds the application procedure where the foundation wrote one. Part VIII lists officers, directors and trustees with their hours and compensation. That is the whole of the source: no editorial, no scoring, no contact appended from anywhere else.</p>
+
+      <h2>The state on the return is a mailing address</h2>
+      <p>The state field is the address the foundation printed on its own return. It is not a statement about where it gives. Two consequences follow. Small foundations mostly give near home, so the state cut works in practice. Trusts administered by a bank or a professional trustee do not: across the states we built, 17,974 funder rows sit at an address shared by 50 or more foundations in the same state, and those foundations may fund anywhere. In one state a single address holds 70.8% of the rows; the median across states is 3.6%.</p>
+      <p>If you are researching by state, flag the shared-administrator rows and read their grant lines to see where the money actually went, rather than assuming the mailing state.</p>
+
+      <h2>"Preselected only" is the number that decides your list</h2>
+      <p>Most private foundations say on the return that they give only to organisations they select themselves and do not accept unsolicited requests. Across the 51 states we publish, 81,059 of 111,619 funders say exactly that: 72.6%. Only 25,674 (23.0%) filed any application text at all.</p>
+      <p>The list you can actually write to is the intersection: filed application text and did not mark preselected-only.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>State</th><th>Funders</th><th>Preselected only</th><th>Accepts applications and not preselected</th></tr></thead>
+        <tbody>
+          <tr><td>California</td><td>10,834</td><td>8,246 (76.1%)</td><td>1,519 (14.0%)</td></tr>
+          <tr><td>New York</td><td>10,570</td><td>8,240 (78.0%)</td><td>1,653 (15.6%)</td></tr>
+          <tr><td>Vermont</td><td>314</td><td>212 (67.5%)</td><td>85 (27.1%)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Application detail is thinner than the field names suggest. In California, deadline text is non-blank on 1,783 funders (16.5%), but 948 of those say "N/A" or "none" and 80 point at an attachment, leaving 755 with a real deadline: 7.0% of the state. The phone the filer printed is the more reliable contact, present on 94.8%.</p>
+
+      <h2>E-filed only, and what that leaves out</h2>
+      <p>Our files carry e-filed returns posted in the federal e-file archives, and nothing else. Foundations that filed on paper, and e-filers whose return was posted outside the window, are absent. Measured against the free per-state registry of active private foundations, 3,124 of 13,404 California foundations (23.3%) had no e-filed return in our window; in the other direction, 554 of our California records (5.1%) are not on that active registry list.</p>
+      <p>Timing lags too. Foundations file months after their year ends, so a current file is mostly the prior two tax years: of California grant rows, 56.4% are tax year 2024, 42.7% are 2025 and 0.8% are 2026.</p>
+
+      <h2>How to verify a funder yourself</h2>
+      <ul>
+        <li>Take the EIN from the row. It appears in the tax authority's e-file index for the archive named on that row.</li>
+        <li>Open the EIN on a public nonprofit explorer. It will confirm the organisation, its state and its filings.</li>
+        <li>The explorer does not publish a grants table: its search caps at 10,000 results, pages 25 organisations at a time, and exposes no grants endpoint. To check a grant line, open the return itself.</li>
+        <li>The free per-state registry gives you name, address, assets and income for every registered private foundation in seconds. What it does not carry is grants paid, officers or application text.</li>
+      </ul>
+
+      <div class="links">
+        <h3>Free sample</h3>
+        <p><a href="../samples/funders_VT_sample.csv">funders_VT_sample.csv</a> and <a href="../samples/grants_VT_sample.csv">grants_VT_sample.csv</a> — header plus 20 rows each, downloading straight from this site with no account and no email.</p>
+      </div>
+      <div class="links">
+        <h3>The full file</h3>
+        <p>One state per file: funders, grants paid and officers as CSV plus a spreadsheet. <a href="https://payhip.com/b/0Uaq7">S $29</a> · <a href="https://payhip.com/b/MtaKk">M $49</a> · <a href="https://payhip.com/b/eP8iV">L $79</a>, priced on the state's count of funders with grants. Snapshot 2026-09-07.</p>
+      </div>
+
+    </article>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p><a href="../">Home</a> · <a href="./">All guides</a> · Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a></p>
+    <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</p>
+  </div>
+</footer>
+
+</body>
+</html>

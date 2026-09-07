@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task orders vs standalone contracts: what you can actually bid on — OpenFilings</title>
+<meta name="description" content="Most expiring federal awards are orders under a vehicle, not standalone contracts. The measured split, the vehicle types, and how to filter a list down to real targets.">
+<meta name="color-scheme" content="dark">
+<style>
+:root{
+  --ink:#0E1420; --panel:#151C2A; --paper:#F5F7FA; --muted:#97A1AE;
+  --rule:rgba(245,247,250,.16); --amber:#F4B23E; --teal:#4CC9B0;
+  --accent:var(--paper);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--paper)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.015em;margin:0}
+h1{font-size:2rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+p{margin:.75rem 0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+
+/* mark */
+.mark{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.05rem;letter-spacing:.01em}
+.mark .sq{width:.9rem;height:.9rem;background:var(--amber);flex:0 0 auto}
+
+/* hero */
+header.hero{padding:2rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.hero h1{margin:1.75rem 0 0;max-width:22ch}
+.hero .lede{font-size:1.0625rem;max-width:62ch;color:var(--paper)}
+.hero .src{max-width:62ch}
+
+/* sections */
+section{padding:2.5rem 0;border-bottom:1px solid var(--rule)}
+section>.wrap>h2{max-width:24ch}
+
+/* product cards */
+.card{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);margin:0 0 1.5rem}
+.card.b01{--accent:var(--amber)}
+.card.b03{--accent:var(--teal)}
+.card .body{padding:1.25rem}
+.card h2{color:var(--accent)}
+.card .kicker{font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem}
+.motif{display:block;width:100%;height:auto}
+ul.gets{list-style:none;padding:0;margin:1rem 0 0}
+ul.gets li{position:relative;padding-left:1.4rem;margin:.6rem 0}
+ul.gets li::before{content:"";position:absolute;left:0;top:.55rem;width:.55rem;height:.55rem;background:var(--accent)}
+.caveat{border-left:3px solid var(--muted);padding:.1rem 0 .1rem .85rem;margin:1.25rem 0 0;color:var(--muted);font-size:.9375rem}
+
+/* price bands */
+.bands{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0 0;padding:0;list-style:none}
+.band{display:flex;align-items:center;gap:.9rem;padding:.75rem .9rem;border:1px solid var(--rule);background:var(--ink);text-decoration:none;color:var(--paper)}
+.band:hover,.band:focus-visible{border-color:var(--accent)}
+.band .letter{font-weight:700;font-size:1.25rem;color:var(--accent);width:1.2rem;flex:0 0 auto}
+.band .price{font-weight:700;font-size:1.125rem;width:3.2rem;flex:0 0 auto}
+.band .what{font-size:.875rem;color:var(--muted);flex:1 1 auto}
+
+details{margin:1.25rem 0 0;border-top:1px solid var(--rule);padding-top:.85rem}
+summary{cursor:pointer;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+details ol{font-size:.875rem;color:var(--muted);padding-left:1.2rem;margin:.85rem 0 0}
+details li{margin:.5rem 0}
+
+/* buttons */
+.btn{display:inline-block;padding:.8rem 1.4rem;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;border:2px solid var(--amber)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--amber)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--rule)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--paper);color:var(--paper)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 0}
+
+/* verify */
+dl.verify{margin:1.25rem 0 0}
+dl.verify dt{font-weight:700;margin:1rem 0 .2rem}
+dl.verify dd{margin:0;color:var(--muted);font-size:.9375rem}
+code{font-family:var(--mono);font-size:.875em;background:var(--panel);padding:.1em .35em;border:1px solid var(--rule)}
+
+/* faq */
+.faq{margin:1.25rem 0 0}
+.faq h3{text-transform:none;letter-spacing:-.01em;font-size:1.0625rem;margin:1.5rem 0 .2rem}
+.faq p{color:var(--muted);font-size:.9375rem;margin:.3rem 0 0;max-width:70ch}
+
+footer{padding:2.5rem 0 3.5rem;color:var(--muted);font-size:.875rem}
+footer p{max-width:75ch}
+footer a{color:var(--muted)}
+
+@media (min-width:44rem){
+  h1{font-size:3rem}
+  h2{font-size:2rem}
+  .card .body{padding:2rem}
+  .bands{grid-template-columns:repeat(3,1fr)}
+  .band{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .band .what{font-size:.8125rem}
+  header.hero{padding:3rem 0 3.5rem}
+  section{padding:3.5rem 0}
+}
+
+/* guides */
+.crumb{font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 0}
+.crumb a{color:var(--muted)}
+article.guide{padding:2.5rem 0}
+article.guide h2{font-size:1.25rem;margin:2rem 0 .35rem;max-width:34ch}
+article.guide p{max-width:70ch}
+article.guide ul{max-width:70ch;padding-left:1.2rem}
+article.guide li{margin:.45rem 0}
+.tablewrap{overflow-x:auto;margin:1.25rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;background:var(--panel)}
+th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.links{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);padding:1.25rem;margin:2.5rem 0 0}
+.links h3{margin:0 0 .35rem}
+.links p{margin:.35rem 0}
+.links + .links{margin-top:1rem}
+.guidelist{list-style:none;padding:0;margin:1.5rem 0 0}
+.guidelist li{border-top:1px solid var(--rule);padding:1.1rem 0}
+.guidelist a{font-weight:700;font-size:1.0625rem;text-decoration:none;letter-spacing:-.01em}
+.guidelist a:hover{text-decoration:underline}
+.guidelist p{margin:.3rem 0 0;color:var(--muted);font-size:.9375rem;max-width:70ch}
+@media (min-width:44rem){article.guide h2{font-size:1.5rem}.links{padding:2rem}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p class="crumb"><a href="../">Home</a> · <a href="./">Guides</a></p>
+    <h1>Task orders vs standalone contracts: what you can actually bid on</h1>
+    <p class="lede">An expiring award is not by itself an opportunity. Six in ten are orders you can only reach through a vehicle you already hold.</p>
+    <p class="src muted">Shares measured 2026-09-07 over 188,740 rows in the biddable window across every industry code we publish.</p>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <article class="guide b01">
+
+      <h2>Two different things sit in one federal dataset</h2>
+      <p>A standalone award is a contract or purchase order with no parent. When it ends, the agency either awards a new contract, extends this one, or stops buying. That is the case most people picture when they hear that a contract is expiring.</p>
+      <p>An order is placed against a vehicle that already exists: a delivery order or a call under an indefinite-delivery contract, a blanket purchase agreement, a schedule, or a government-wide acquisition contract. Its end date is real, and the work will very likely be bought again, but the competition happens among the firms holding the vehicle. If you are not on it, the end date is not an opening.</p>
+
+      <h2>The measured split</h2>
+      <p>Across every industry code we publish, 188,740 rows sit in the biddable window. They divide as follows.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>Class</th><th>Rows</th><th>Share</th><th>What bidding means</th></tr></thead>
+        <tbody>
+          <tr><td>Standalone</td><td>73,887</td><td>39.1%</td><td>Open follow-on, subject to the set-aside on the row</td></tr>
+          <tr><td>Order under a vehicle</td><td>114,853</td><td>60.9%</td><td>Biddable only through the parent vehicle</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Among the order rows, the vehicle type breaks down as 75,211 indefinite-delivery contracts, 13,729 blanket purchase agreements, 10,579 schedule orders, 8,258 government-wide acquisition contracts and 7,076 basic ordering agreements. Every order row we ship names its own parent award id and vehicle type, so the vehicle you would have to join is identifiable from the row.</p>
+
+      <h2>Standalone does not mean open to everyone</h2>
+      <p>Of the 73,887 standalone rows, 21,801 (29.5%) carry some set-aside restriction, and 2,847 (3.85%) are sole-source or programme awards that only a firm already holding that status can win. Read the set-aside column before the value column.</p>
+      <p>Size cuts the list again. 12,967 standalone rows (17.5%) are under $10,000, and 12,787 of those are purchase orders below the micro-purchase threshold, where no competition follows at all.</p>
+      <p>And 40,447 rows in the window (21.4%) still have option years left: the potential end date is later than the current one, so the agency can extend instead of recompeting.</p>
+
+      <h2>A working order of operations</h2>
+      <ul>
+        <li>Filter to standalone first if you hold no vehicles. That is 39.1% of the rows.</li>
+        <li>Drop sole-source and programme set-asides you do not qualify for.</li>
+        <li>Drop rows under the micro-purchase threshold unless very small work suits you.</li>
+        <li>Sort what is left by days remaining, and treat rows with option years left as lower confidence.</li>
+        <li>Keep the order rows in a second list. They tell you which vehicles are worth joining, which is a slower play than a bid but a longer-lived one.</li>
+      </ul>
+      <p>Every row in our files carries an award class column and a plain-text column stating what a bidder would have to do with that row, so the split above is a filter, not an interpretation.</p>
+
+      <div class="links">
+        <h3>Free sample</h3>
+        <p><a href="../samples/expiring_541512_sample.csv">expiring_541512_sample.csv</a> — header plus 20 rows, all 30 columns, downloads straight from this site with no account and no email.</p>
+      </div>
+      <div class="links">
+        <h3>The full file</h3>
+        <p>One industry code per file, three CSV sheets plus a spreadsheet. <a href="https://payhip.com/b/batV9">S $29</a> · <a href="https://payhip.com/b/TWj1w">M $49</a> · <a href="https://payhip.com/b/oA5Sa">L $79</a>, priced on the row count of the code you pick. Snapshot 2026-09-07.</p>
+      </div>
+
+    </article>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p><a href="../">Home</a> · <a href="./">All guides</a> · Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a></p>
+    <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</p>
+  </div>
+</footer>
+
+</body>
+</html>
