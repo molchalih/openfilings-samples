@@ -57,6 +57,11 @@ ul.gets li::before{content:"";position:absolute;left:0;top:.55rem;width:.55rem;h
 
 /* price bands */
 .bands{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0 0;padding:0;list-style:none}
+.sectorhead{margin:1.25rem 0 .4rem;font-size:.875rem;font-weight:700}
+.sectors{display:grid;grid-template-columns:1fr;gap:.4rem;margin:0;padding:0;list-style:none}
+.sectors a{display:flex;gap:.6rem;padding:.5rem .75rem;border:1px solid var(--rule);text-decoration:none;font-size:.875rem}
+.sectors a:hover,.sectors a:focus-visible{border-color:var(--accent)}
+.sectors .price{font-weight:700;flex:0 0 auto}
 .band{display:flex;align-items:center;gap:.9rem;padding:.75rem .9rem;border:1px solid var(--rule);background:var(--ink);text-decoration:none;color:var(--paper)}
 .band:hover,.band:focus-visible{border-color:var(--accent)}
 .band .letter{font-weight:700;font-size:1.25rem;color:var(--accent);width:1.2rem;flex:0 0 auto}
@@ -95,6 +100,7 @@ footer a{color:var(--muted)}
   h2{font-size:2rem}
   .card .body{padding:2rem}
   .bands{grid-template-columns:repeat(3,1fr)}
+  .sectors{grid-template-columns:repeat(2,1fr)}
   .band{flex-direction:column;align-items:flex-start;gap:.25rem}
   .band .what{font-size:.8125rem}
   header.hero{padding:3rem 0 3.5rem}
@@ -127,20 +133,29 @@ footer a{color:var(--muted)}
         <ul class="gets">
           <li>30 columns: award id, vehicle id and type, incumbent, agency, office, values, dates, set-aside, PSC, award class, how to compete, official source link.</li>
           <li>Three CSVs and one spreadsheet with typed numbers and dates, identical content; a free 20-row sample spread across the main sheets.</li>
-          <li>Every row links to its official award page; a 25-row audit matched at 96% or better.</li>
+          <li>Every contract row links to its official award page; 93 of 100 sampled rows matched the official award record on all 12 mapped fields on 2026-09-07 (95% confidence interval 86%&ndash;97%); the 7 differences are later agency modifications, not mapping errors.</li>
         </ul>
         <p class="caveat">Honest caveat: covers prime contracts and orders with activity in the current fiscal year; earlier-vintage industry codes are mapped to their 2022 successor; no subawards, no contacts.</p>
         <ul class="bands">
-          <li><a class="band" href="https://payhip.com/b/batV9"><span class="letter">S</span><span class="price">$29</span><span class="what">100–499 biddable-window rows · 181 codes</span></a></li>
-          <li><a class="band" href="https://payhip.com/b/TWj1w"><span class="letter">M</span><span class="price">$49</span><span class="what">500–2,499 biddable-window rows · 68 codes</span></a></li>
           <li><a class="band" href="https://payhip.com/b/oA5Sa"><span class="letter">L</span><span class="price">$79</span><span class="what">2,500 or more biddable-window rows · 13 codes</span></a></li>
+        </ul>
+        <p class="sectorhead">Small and medium codes, by sector — $29 for 100–499 biddable-window rows, $49 for 500–2,499:</p>
+        <ul class="sectors">
+          <li><a href="https://payhip.com/b/C364q"><span class="price">$49</span><span>Medium codes 11–33 · 38 codes</span></a></li>
+          <li><a href="https://payhip.com/b/Y2wO3"><span class="price">$49</span><span>Medium codes 42–81 · 30 codes</span></a></li>
+          <li><a href="https://payhip.com/b/aNYuf"><span class="price">$29</span><span>Small codes 22–32 · 33 codes</span></a></li>
+          <li><a href="https://payhip.com/b/I05jB"><span class="price">$29</span><span>Small codes 331–334 · 35 codes</span></a></li>
+          <li><a href="https://payhip.com/b/N5sUf"><span class="price">$29</span><span>Small codes 335–339 · 22 codes</span></a></li>
+          <li><a href="https://payhip.com/b/jMEsT"><span class="price">$29</span><span>Small codes 42–53 · 34 codes</span></a></li>
+          <li><a href="https://payhip.com/b/TOg0f"><span class="price">$29</span><span>Small codes 54–56 · 26 codes</span></a></li>
+          <li><a href="https://payhip.com/b/4R8M1"><span class="price">$29</span><span>Small codes 61–92 · 31 codes</span></a></li>
         </ul>
         <details>
           <summary>Disclosures (8)</summary>
           <ol>
             <li>Price keys on the biddable-window rows only. Imminent rows, 0–30 days to end, are included free and are likely too late to bid. Each listing states both counts separately.</li>
-            <li>Lead time per file: the share of main rows with 90 or more days left runs 0.0632 to 1.0000, median 0.8000 across the 262 listed units; each listing states its own share.</li>
-            <li>Orders outnumber standalone contracts: 114,853 of 188,740 main rows are orders under a vehicle, 60.9%, biddable only through that vehicle. The <code>award_class</code> and <code>how_to_compete</code> columns state it per row.</li>
+            <li>Lead time per file: the share of main rows with 90 or more days left runs 0.0632 to 1.0000, median 0.7996 across the 262 listed units; each listing states its own share.</li>
+            <li>Orders outnumber standalone contracts: 114,864 of 188,757 main rows are orders under a vehicle, 60.9%, biddable only through that vehicle. The <code>award_class</code> and <code>how_to_compete</code> columns state it per row.</li>
             <li>Rows whose set-aside is sole source or a programme set-aside are biddable only by a firm holding that status; <code>how_to_compete</code> carries the qualifying phrase.</li>
             <li>Snapshot age: built 2026-09-07 from archive 2026-08-06. A file is rebuilt before upload if its snapshot is over 30 days old on the listing date.</li>
             <li>Crosswalk: a row filed under a pre-2022 industry code is published under its 2022 successor; <code>naics_source_code</code> keeps the code as recorded, and a code with several successors appears in each successor's file.</li>
@@ -205,13 +220,21 @@ footer a{color:var(--muted)}
 <section id="verify">
   <div class="wrap">
     <h2>Verify any row</h2>
-    <p>Nothing here has to be taken on trust. Every row carries the identifier that resolves it on the official source page.</p>
+    <p>Nothing here has to be taken on trust. Every contract row links to its official award page; foundation rows cite the filing's EIN and tax period, which locate the public return.</p>
     <dl class="verify">
       <dt>Federal contracts</dt>
-      <dd>Every row links to its official award page in the <code>source_url</code> column; a 25-row audit against the official pages matched at 96% or better. End dates change when agencies modify contracts, so a row is accurate as of the archive date stated on the file.</dd>
+      <dd>Every contract row links to its official award page in the <code>source_url</code> column. Audited 2026-09-07: 93 of 100 sampled rows matched the official award record on all 12 mapped fields (95% confidence interval 86%&ndash;97%); the 7 differences are later agency modifications, not mapping errors. End dates change when agencies modify contracts, so a row is accurate as of the archive date stated on the file.</dd>
       <dt>Foundation funders</dt>
-      <dd>Every EIN is in the tax authority's e-file index, and each row carries <code>tax_period_end</code> and <code>source_archive</code>. A 25-row audit against the source XML matched at 96% or better, and a 10-funder check against the public record matched at 90% or better.</dd>
+      <dd>Foundation rows cite the filing's EIN and tax period, which locate the public return; each row also names the archive posting it came from in <code>source_archive</code>, with its <code>object_id</code>. Independently re-parsed from the source filings, audited 2026-09-07: 125 sampled rows across 25 state files &mdash; 100 grants and 25 funders &mdash; matched the filing on every audited column.</dd>
     </dl>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <h2>Privacy and removal</h2>
+    <p>The foundation files reproduce what a 990-PF return already prints in public. Individuals appear where the filer named them: officers, directors and trustees with their title, weekly hours and compensation as filed; the in-care-of name, mailing address and phone the foundation printed for itself; the application contact named in Part XV; and grant recipients, some of whom are people rather than organisations. Officer addresses are not carried and there is no email column. We add nothing beyond the filing &mdash; no appended, enriched or purchased contact data, no scoring and no matching.</p>
+    <p>If you are named in one of these files and want to be removed from the copies we build, email <a href="mailto:openfilings.ops@gmail.com">openfilings.ops@gmail.com</a> with the foundation name or EIN and the name as it appears on the row. We reply within 24 to 72 hours and act on the request in the files we build. We cannot change the public return itself: that is published by the tax authority and stays where it is.</p>
   </div>
 </section>
 
@@ -223,7 +246,7 @@ footer a{color:var(--muted)}
       <p>A failed link or a zip that will not open gets a replacement link, then a full refund on request. If the row counts, snapshot date or archive date on the listing differ from the delivered file, that is a full refund with no return needed. Refund window: 14 days from purchase.</p>
 
       <h3>An end date on the official page differs from the file.</h3>
-      <p>No refund. The file reproduces the published federal archive as of the archive date printed on it, and every row links to its official page so the current date can be read there. Agencies modify contracts after the archive is published.</p>
+      <p>No refund. The file reproduces the published federal archive as of the archive date printed on it, and every contract row links to its official page so the current date can be read there. Agencies modify contracts after the archive is published.</p>
 
       <h3>A contract I know about is not in the file.</h3>
       <p>No refund. Coverage is prime contracts and orders with activity in the current fiscal year, whose period of performance ends inside the window stated on the listing. Every exclusion is on the listing page before purchase.</p>
@@ -245,7 +268,7 @@ footer a{color:var(--muted)}
 <footer>
   <div class="wrap">
     <p class="mark"><span class="sq"></span>OpenFilings</p>
-    <p>Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a> · Samples repository: <a href="https://github.com/molchalih/openfilings-samples">github.com/molchalih/openfilings-samples</a></p>
+    <p>Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a> · <a href="https://payhip.com/OpenFilings/refunds-and-verification">Refunds and verification</a> · Samples repository: <a href="https://github.com/molchalih/openfilings-samples">github.com/molchalih/openfilings-samples</a></p>
     <p>Licence — samples: public-domain source data, redistributable; reuse them freely, with or without attribution. Purchased files ship with their own <code>LICENSE.txt</code> inside the zip.</p>
     <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used. No agency endorses this.</p>
   </div>

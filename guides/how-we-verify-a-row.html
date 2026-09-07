@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How we verify a row — OpenFilings</title>
-<meta name="description" content="The source-link-per-row method, the sample audits and their measured results, what the snapshot date means, how a file ages, and what we deliberately do not do.">
+<meta name="description" content="The link-or-identifier-per-row method, the sample audits and their measured results, what the snapshot date means, how a file ages, and what we deliberately do not do.">
 <meta name="color-scheme" content="dark">
 <style>
 :root{
@@ -134,7 +134,7 @@ tr:last-child td{border-bottom:0}
     <p class="mark"><span class="sq"></span>OpenFilings</p>
     <p class="crumb"><a href="../">Home</a> · <a href="./">Guides</a></p>
     <h1>How we verify a row</h1>
-    <p class="lede">Nothing here has to be taken on trust. Every row carries the identifier that resolves it on the public record, and the audits are numbers, not adjectives.</p>
+    <p class="lede">Nothing here has to be taken on trust. Every contract row links to its official award page; foundation rows cite the filing's EIN and tax period, which locate the public return. The audits are numbers, not adjectives.</p>
     <p class="src muted">Audit results measured 2026-09-07 on the shipped 2026-09-07 build of both file sets.</p>
   </div>
 </header>
@@ -145,11 +145,11 @@ tr:last-child td{border-bottom:0}
     <article class="guide b01">
 
       <h2>One rule: a row you cannot check is a row we should not sell</h2>
-      <p>Both of our datasets are compiled from filings that anyone can read. So every row we publish carries the identifiers that take you back to the filing it came from, and we test that path on a random sample before a file ships.</p>
+      <p>Both of our datasets are compiled from filings that anyone can read. So every row we publish carries the link or the identifiers that take you back to the filing it came from, and we test that path on a random sample before a file ships.</p>
 
-      <h2>The source link per row</h2>
-      <p>Each federal contract row carries a link column pointing at that award's official page, plus the award id, the incumbent, the agency and office, both end dates and the industry code as recorded. Before shipping, 25 rows drawn at random from the build are fetched from the official award interface and compared field by field on the award id, the incumbent name, the current end date and the industry code. On the 2026-09-07 build, 25 of 25 matched on all four.</p>
-      <p>Each foundation row carries its EIN, the return id and the name of the archive posting the return came from. Three checks run against those. 25 grant rows are re-read from the source return XML and compared on funder EIN, recipient, purpose, amount and tax period: 25 of 25 matched. 10 funders are checked against a public nonprofit record for state and name: 10 of 10 matched. And the grant lines are summed against the total the foundation itself reported: 786 of 786 filers checked reconciled.</p>
+      <h2>The link or identifier per row</h2>
+      <p>Each federal contract row carries a link column pointing at that award's official page, plus the award id, the incumbent, the agency and office, both end dates and the industry code as recorded. Rows drawn at random from the build are fetched from the official award interface and compared field by field. On the 2026-09-07 build, 93 of 100 sampled rows matched the official award record on all 12 mapped fields (95% confidence interval 86%&ndash;97%); the 7 differences are later agency modifications, not mapping errors.</p>
+      <p>Each foundation row carries its EIN, the tax period and the return id, plus the name of the archive posting the return came from; the EIN and tax period are what locate the public return. The rows are then independently re-parsed from the source filings: 125 sampled rows across 25 state files &mdash; 100 grants and 25 funders &mdash; matched the filing on every audited column, audited 2026-09-07.</p>
 
       <h2>Snapshot dates, and what ageing does</h2>
       <p>A file is a photograph, not a feed. Every row carries the snapshot date, and the source archive it was built from is named on the file and on the listing.</p>
@@ -162,7 +162,7 @@ tr:last-child td{border-bottom:0}
         </tbody>
       </table>
       </div>
-      <p>Contract rows age visibly. Thirty days after the snapshot no row in the main sheets has expired, because the window starts at 31 days. Sixty days after it, 26,579 of 188,740 rows (14.1%) have passed their end date. That is why the snapshot and archive dates are printed on the listing and why a file older than a month gets rebuilt before it is offered.</p>
+      <p>Contract rows age visibly. Thirty days after the snapshot no row in the main sheets has expired, because the window starts at 31 days. Sixty days after it, 26,579 of 188,757 rows (14.1%) have passed their end date. That is why the snapshot and archive dates are printed on the listing and why a file older than a month gets rebuilt before it is offered.</p>
       <p>End dates also move. Agencies modify contracts after an archive is published, so a row is accurate as of its archive date and the official page is the current answer. The link on the row is how you get to it.</p>
 
       <h2>What we do not do</h2>
@@ -182,7 +182,7 @@ tr:last-child td{border-bottom:0}
       </div>
       <div class="links">
         <h3>The full file</h3>
-        <p>Expiring federal contracts, one industry code per file: <a href="https://payhip.com/b/batV9">$29</a> · <a href="https://payhip.com/b/TWj1w">$49</a> · <a href="https://payhip.com/b/oA5Sa">$79</a>. Foundation funders, one state per file: <a href="https://payhip.com/b/0Uaq7">$29</a> · <a href="https://payhip.com/b/MtaKk">$49</a> · <a href="https://payhip.com/b/eP8iV">$79</a>. Snapshot 2026-09-07.</p>
+        <p>Expiring federal contracts, one industry code per file: <a href="https://payhip.com/b/oA5Sa">$79</a> for the largest codes, and eight sector files at $49 and $29 — <a href="https://payhip.com/OpenFilings/collection/expiring-federal-contracts">browse them all</a>. Foundation funders, one state per file: <a href="https://payhip.com/b/0Uaq7">$29</a> · <a href="https://payhip.com/b/MtaKk">$49</a> · <a href="https://payhip.com/b/eP8iV">$79</a>. Snapshot 2026-09-07.</p>
       </div>
 
     </article>
@@ -193,7 +193,7 @@ tr:last-child td{border-bottom:0}
 <footer>
   <div class="wrap">
     <p class="mark"><span class="sq"></span>OpenFilings</p>
-    <p><a href="../">Home</a> · <a href="./">All guides</a> · Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a></p>
+    <p><a href="../">Home</a> · <a href="./">All guides</a> · Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a> · <a href="https://payhip.com/OpenFilings/refunds-and-verification">Refunds and verification</a></p>
     <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</p>
   </div>
 </footer>
