@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenFilings — federal contract and foundation data files</title>
+<meta name="description" content="Dated CSV and spreadsheet files compiled from public-domain US federal filings: expiring federal contracts by industry code, and private foundation funders by state. Free samples, no account.">
+<meta name="color-scheme" content="dark">
+<style>
+:root{
+  --ink:#0E1420; --panel:#151C2A; --paper:#F5F7FA; --muted:#97A1AE;
+  --rule:rgba(245,247,250,.16); --amber:#F4B23E; --teal:#4CC9B0;
+  --accent:var(--paper);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--paper)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2,h3{line-height:1.15;letter-spacing:-.015em;margin:0}
+h1{font-size:2rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+p{margin:.75rem 0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+
+/* mark */
+.mark{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.05rem;letter-spacing:.01em}
+.mark .sq{width:.9rem;height:.9rem;background:var(--amber);flex:0 0 auto}
+
+/* hero */
+header.hero{padding:2rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.hero h1{margin:1.75rem 0 0;max-width:22ch}
+.hero .lede{font-size:1.0625rem;max-width:62ch;color:var(--paper)}
+.hero .src{max-width:62ch}
+
+/* sections */
+section{padding:2.5rem 0;border-bottom:1px solid var(--rule)}
+section>.wrap>h2{max-width:24ch}
+
+/* product cards */
+.card{background:var(--panel);border:1px solid var(--rule);border-top:4px solid var(--accent);margin:0 0 1.5rem}
+.card.b01{--accent:var(--amber)}
+.card.b03{--accent:var(--teal)}
+.card .body{padding:1.25rem}
+.card h2{color:var(--accent)}
+.card .kicker{font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 .35rem}
+.motif{display:block;width:100%;height:auto}
+ul.gets{list-style:none;padding:0;margin:1rem 0 0}
+ul.gets li{position:relative;padding-left:1.4rem;margin:.6rem 0}
+ul.gets li::before{content:"";position:absolute;left:0;top:.55rem;width:.55rem;height:.55rem;background:var(--accent)}
+.caveat{border-left:3px solid var(--muted);padding:.1rem 0 .1rem .85rem;margin:1.25rem 0 0;color:var(--muted);font-size:.9375rem}
+
+/* price bands */
+.bands{display:grid;grid-template-columns:1fr;gap:.6rem;margin:1.25rem 0 0;padding:0;list-style:none}
+.band{display:flex;align-items:center;gap:.9rem;padding:.75rem .9rem;border:1px solid var(--rule);background:var(--ink);text-decoration:none;color:var(--paper)}
+.band:hover,.band:focus-visible{border-color:var(--accent)}
+.band .letter{font-weight:700;font-size:1.25rem;color:var(--accent);width:1.2rem;flex:0 0 auto}
+.band .price{font-weight:700;font-size:1.125rem;width:3.2rem;flex:0 0 auto}
+.band .what{font-size:.875rem;color:var(--muted);flex:1 1 auto}
+
+details{margin:1.25rem 0 0;border-top:1px solid var(--rule);padding-top:.85rem}
+summary{cursor:pointer;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+details ol{font-size:.875rem;color:var(--muted);padding-left:1.2rem;margin:.85rem 0 0}
+details li{margin:.5rem 0}
+
+/* buttons */
+.btn{display:inline-block;padding:.8rem 1.4rem;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;border:2px solid var(--amber)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--amber)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--rule)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--paper);color:var(--paper)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 0}
+
+/* verify */
+dl.verify{margin:1.25rem 0 0}
+dl.verify dt{font-weight:700;margin:1rem 0 .2rem}
+dl.verify dd{margin:0;color:var(--muted);font-size:.9375rem}
+code{font-family:var(--mono);font-size:.875em;background:var(--panel);padding:.1em .35em;border:1px solid var(--rule)}
+
+/* faq */
+.faq{margin:1.25rem 0 0}
+.faq h3{text-transform:none;letter-spacing:-.01em;font-size:1.0625rem;margin:1.5rem 0 .2rem}
+.faq p{color:var(--muted);font-size:.9375rem;margin:.3rem 0 0;max-width:70ch}
+
+footer{padding:2.5rem 0 3.5rem;color:var(--muted);font-size:.875rem}
+footer p{max-width:75ch}
+footer a{color:var(--muted)}
+
+@media (min-width:44rem){
+  h1{font-size:3rem}
+  h2{font-size:2rem}
+  .card .body{padding:2rem}
+  .bands{grid-template-columns:repeat(3,1fr)}
+  .band{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .band .what{font-size:.8125rem}
+  header.hero{padding:3rem 0 3.5rem}
+  section{padding:3.5rem 0}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <h1>Public federal filings, compiled into dated data files</h1>
+    <p class="lede">We compile two things: federal prime contracts and orders whose period of performance ends inside the coming year, cut by six-digit industry code; and private foundations that filed a 990-PF return, cut by state, with their grants and officers.</p>
+    <p class="src muted">Sources: the published federal award archive (archive 2026-08-06) and the federal 990-PF e-file XML archives. Both public domain. Snapshot 2026-09-07. Every file is a one-time purchase — no subscription, no login.</p>
+    <p class="btnrow"><a class="btn" href="#sample">Download the free sample</a><a class="btn ghost" href="#verify">How to verify a row</a></p>
+  </div>
+</header>
+
+<main>
+
+<section id="contracts">
+  <div class="wrap">
+    <article class="card b01">
+      <svg class="motif" viewBox="0 0 1344 227" aria-hidden="true" focusable="false" fill="#F4B23E"><rect x="0.0" y="0.0" width="17.8" height="227.0" opacity="1.00"/><rect x="19.8" y="2.0" width="17.8" height="225.0" opacity="0.99"/><rect x="39.6" y="32.0" width="17.8" height="195.0" opacity="0.98"/><rect x="59.4" y="35.0" width="17.8" height="192.0" opacity="0.97"/><rect x="79.2" y="37.0" width="17.8" height="190.0" opacity="0.96"/><rect x="99.0" y="57.0" width="17.8" height="170.0" opacity="0.95"/><rect x="118.8" y="65.0" width="17.8" height="162.0" opacity="0.94"/><rect x="138.6" y="67.0" width="17.8" height="160.0" opacity="0.93"/><rect x="158.4" y="78.0" width="17.8" height="149.0" opacity="0.92"/><rect x="178.1" y="79.0" width="17.8" height="148.0" opacity="0.91"/><rect x="197.9" y="82.0" width="17.8" height="145.0" opacity="0.90"/><rect x="217.7" y="83.0" width="17.8" height="144.0" opacity="0.89"/><rect x="237.5" y="90.0" width="17.8" height="137.0" opacity="0.88"/><rect x="257.3" y="96.0" width="17.8" height="131.0" opacity="0.87"/><rect x="277.1" y="97.0" width="17.8" height="130.0" opacity="0.86"/><rect x="296.9" y="98.0" width="17.8" height="129.0" opacity="0.85"/><rect x="316.7" y="104.0" width="17.8" height="123.0" opacity="0.84"/><rect x="336.5" y="106.0" width="17.8" height="121.0" opacity="0.84"/><rect x="356.3" y="113.0" width="17.8" height="114.0" opacity="0.83"/><rect x="376.1" y="114.0" width="17.8" height="113.0" opacity="0.82"/><rect x="395.9" y="116.0" width="17.8" height="111.0" opacity="0.81"/><rect x="415.7" y="121.0" width="17.8" height="106.0" opacity="0.80"/><rect x="435.5" y="127.0" width="17.8" height="100.0" opacity="0.79"/><rect x="455.3" y="128.0" width="17.8" height="99.0" opacity="0.78"/><rect x="475.1" y="128.0" width="17.8" height="99.0" opacity="0.77"/><rect x="494.9" y="131.0" width="17.8" height="96.0" opacity="0.76"/><rect x="514.6" y="132.0" width="17.8" height="95.0" opacity="0.75"/><rect x="534.4" y="133.0" width="17.8" height="94.0" opacity="0.74"/><rect x="554.2" y="134.0" width="17.8" height="93.0" opacity="0.73"/><rect x="574.0" y="141.0" width="17.8" height="86.0" opacity="0.72"/><rect x="593.8" y="143.0" width="17.8" height="84.0" opacity="0.71"/><rect x="613.6" y="144.0" width="17.8" height="83.0" opacity="0.70"/><rect x="633.4" y="146.0" width="17.8" height="81.0" opacity="0.69"/><rect x="653.2" y="146.0" width="17.8" height="81.0" opacity="0.68"/><rect x="673.0" y="147.0" width="17.8" height="80.0" opacity="0.67"/><rect x="692.8" y="147.0" width="17.8" height="80.0" opacity="0.66"/><rect x="712.6" y="148.0" width="17.8" height="79.0" opacity="0.65"/><rect x="732.4" y="149.0" width="17.8" height="78.0" opacity="0.64"/><rect x="752.2" y="151.0" width="17.8" height="76.0" opacity="0.63"/><rect x="772.0" y="153.0" width="17.8" height="74.0" opacity="0.62"/><rect x="791.8" y="154.0" width="17.8" height="73.0" opacity="0.61"/><rect x="811.6" y="155.0" width="17.8" height="72.0" opacity="0.60"/><rect x="831.4" y="156.0" width="17.8" height="71.0" opacity="0.59"/><rect x="851.1" y="156.0" width="17.8" height="71.0" opacity="0.58"/><rect x="870.9" y="157.0" width="17.8" height="70.0" opacity="0.57"/><rect x="890.7" y="157.0" width="17.8" height="70.0" opacity="0.56"/><rect x="910.5" y="158.0" width="17.8" height="69.0" opacity="0.55"/><rect x="930.3" y="159.0" width="17.8" height="68.0" opacity="0.54"/><rect x="950.1" y="160.0" width="17.8" height="67.0" opacity="0.53"/><rect x="969.9" y="160.0" width="17.8" height="67.0" opacity="0.52"/><rect x="989.7" y="162.0" width="17.8" height="65.0" opacity="0.51"/><rect x="1009.5" y="162.0" width="17.8" height="65.0" opacity="0.51"/><rect x="1029.3" y="165.0" width="17.8" height="62.0" opacity="0.50"/><rect x="1049.1" y="165.0" width="17.8" height="62.0" opacity="0.49"/><rect x="1068.9" y="170.0" width="17.8" height="57.0" opacity="0.48"/><rect x="1088.7" y="170.0" width="17.8" height="57.0" opacity="0.47"/><rect x="1108.5" y="170.0" width="17.8" height="57.0" opacity="0.46"/><rect x="1128.3" y="172.0" width="17.8" height="55.0" opacity="0.45"/><rect x="1148.1" y="172.0" width="17.8" height="55.0" opacity="0.44"/><rect x="1167.9" y="173.0" width="17.8" height="54.0" opacity="0.43"/><rect x="1187.6" y="174.0" width="17.8" height="53.0" opacity="0.42"/><rect x="1207.4" y="177.0" width="17.8" height="50.0" opacity="0.41"/><rect x="1227.2" y="177.0" width="17.8" height="50.0" opacity="0.40"/><rect x="1247.0" y="178.0" width="17.8" height="49.0" opacity="0.39"/><rect x="1266.8" y="178.0" width="17.8" height="49.0" opacity="0.38"/><rect x="1286.6" y="178.0" width="17.8" height="49.0" opacity="0.37"/><rect x="1306.4" y="179.0" width="17.8" height="48.0" opacity="0.36"/><rect x="1326.2" y="180.0" width="17.8" height="47.0" opacity="0.35"/></svg>
+      <div class="body">
+        <p class="kicker">Federal contracts</p>
+        <h2>Expiring federal contracts and orders</h2>
+        <p class="muted">One six-digit industry code per file. Snapshot 2026-09-07, source archive 2026-08-06.</p>
+        <ul class="gets">
+          <li>30 columns: award id, vehicle id and type, incumbent, agency, office, values, dates, set-aside, PSC, award class, how to compete, official source link.</li>
+          <li>Three CSVs and one spreadsheet with typed numbers and dates, identical content; a free 20-row sample spread across the main sheets.</li>
+          <li>Every row links to its official award page; a 25-row audit matched at 96% or better.</li>
+        </ul>
+        <p class="caveat">Honest caveat: covers prime contracts and orders with activity in the current fiscal year; earlier-vintage industry codes are mapped to their 2022 successor; no subawards, no contacts.</p>
+        <ul class="bands">
+          <li><a class="band" href="https://payhip.com/b/batV9"><span class="letter">S</span><span class="price">$29</span><span class="what">100–499 biddable-window rows · 181 codes</span></a></li>
+          <li><a class="band" href="https://payhip.com/b/TWj1w"><span class="letter">M</span><span class="price">$49</span><span class="what">500–2,499 biddable-window rows · 68 codes</span></a></li>
+          <li><a class="band" href="https://payhip.com/b/oA5Sa"><span class="letter">L</span><span class="price">$79</span><span class="what">2,500 or more biddable-window rows · 13 codes</span></a></li>
+        </ul>
+        <details>
+          <summary>Disclosures (8)</summary>
+          <ol>
+            <li>Price keys on the biddable-window rows only. Imminent rows, 0–30 days to end, are included free and are likely too late to bid. Each listing states both counts separately.</li>
+            <li>Lead time per file: the share of main rows with 90 or more days left runs 0.0632 to 1.0000, median 0.8000 across the 262 listed units; each listing states its own share.</li>
+            <li>Orders outnumber standalone contracts: 114,853 of 188,740 main rows are orders under a vehicle, 60.9%, biddable only through that vehicle. The <code>award_class</code> and <code>how_to_compete</code> columns state it per row.</li>
+            <li>Rows whose set-aside is sole source or a programme set-aside are biddable only by a firm holding that status; <code>how_to_compete</code> carries the qualifying phrase.</li>
+            <li>Snapshot age: built 2026-09-07 from archive 2026-08-06. A file is rebuilt before upload if its snapshot is over 30 days old on the listing date.</li>
+            <li>Crosswalk: a row filed under a pre-2022 industry code is published under its 2022 successor; <code>naics_source_code</code> keeps the code as recorded, and a code with several successors appears in each successor's file.</li>
+            <li>Place of performance: <code>pop_state</code> is the 2-letter state of performance; blank means performance outside the United States. No mailing address, contact name, phone or email is included. Main rows whose potential end date is after the current end date may be extended rather than recompeted; each README carries that count.</li>
+            <li>Compiled from public-domain federal data. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</li>
+          </ol>
+        </details>
+      </div>
+    </article>
+
+    <article class="card b03">
+      <svg class="motif" viewBox="0 0 1344 227.3" aria-hidden="true" focusable="false" fill="#4CC9B0"><rect x="0.0" y="0.0" width="67.8" height="67.8" opacity="1.00"/><rect x="79.8" y="0.0" width="67.8" height="67.8" opacity="0.95"/><rect x="159.5" y="0.0" width="67.8" height="67.8" opacity="0.94"/><rect x="239.3" y="0.0" width="67.8" height="67.8" opacity="0.82"/><rect x="319.1" y="0.0" width="67.8" height="67.8" opacity="0.81"/><rect x="398.8" y="0.0" width="67.8" height="67.8" opacity="0.68"/><rect x="478.6" y="0.0" width="67.8" height="67.8" opacity="0.62"/><rect x="558.4" y="0.0" width="67.8" height="67.8" opacity="0.59"/><rect x="638.1" y="0.0" width="67.8" height="67.8" opacity="0.54"/><rect x="717.9" y="0.0" width="67.8" height="67.8" opacity="0.53"/><rect x="797.6" y="0.0" width="67.8" height="67.8" opacity="0.49"/><rect x="877.4" y="0.0" width="67.8" height="67.8" opacity="0.46"/><rect x="957.2" y="0.0" width="67.8" height="67.8" opacity="0.46"/><rect x="1036.9" y="0.0" width="67.8" height="67.8" opacity="0.45"/><rect x="1116.7" y="0.0" width="67.8" height="67.8" opacity="0.43"/><rect x="1196.5" y="0.0" width="67.8" height="67.8" opacity="0.42"/><rect x="1276.2" y="0.0" width="67.8" height="67.8" opacity="0.42"/><rect x="0.0" y="79.8" width="67.8" height="67.8" opacity="0.42"/><rect x="79.8" y="79.8" width="67.8" height="67.8" opacity="0.41"/><rect x="159.5" y="79.8" width="67.8" height="67.8" opacity="0.41"/><rect x="239.3" y="79.8" width="67.8" height="67.8" opacity="0.40"/><rect x="319.1" y="79.8" width="67.8" height="67.8" opacity="0.40"/><rect x="398.8" y="79.8" width="67.8" height="67.8" opacity="0.38"/><rect x="478.6" y="79.8" width="67.8" height="67.8" opacity="0.38"/><rect x="558.4" y="79.8" width="67.8" height="67.8" opacity="0.38"/><rect x="638.1" y="79.8" width="67.8" height="67.8" opacity="0.37"/><rect x="717.9" y="79.8" width="67.8" height="67.8" opacity="0.37"/><rect x="797.6" y="79.8" width="67.8" height="67.8" opacity="0.37"/><rect x="877.4" y="79.8" width="67.8" height="67.8" opacity="0.36"/><rect x="957.2" y="79.8" width="67.8" height="67.8" opacity="0.35"/><rect x="1036.9" y="79.8" width="67.8" height="67.8" opacity="0.35"/><rect x="1116.7" y="79.8" width="67.8" height="67.8" opacity="0.35"/><rect x="1196.5" y="79.8" width="67.8" height="67.8" opacity="0.35"/><rect x="1276.2" y="79.8" width="67.8" height="67.8" opacity="0.34"/><rect x="0.0" y="159.5" width="67.8" height="67.8" opacity="0.34"/><rect x="79.8" y="159.5" width="67.8" height="67.8" opacity="0.34"/><rect x="159.5" y="159.5" width="67.8" height="67.8" opacity="0.34"/><rect x="239.3" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="319.1" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="398.8" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="478.6" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="558.4" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="638.1" y="159.5" width="67.8" height="67.8" opacity="0.33"/><rect x="717.9" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="797.6" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="877.4" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="957.2" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="1036.9" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="1116.7" y="159.5" width="67.8" height="67.8" opacity="0.32"/><rect x="1196.5" y="159.5" width="67.8" height="67.8" opacity="0.31"/><rect x="1276.2" y="159.5" width="67.8" height="67.8" opacity="0.31"/></svg>
+      <div class="body">
+        <p class="kicker">Foundation funders</p>
+        <h2>Private foundation funders, grants and officers</h2>
+        <p class="muted">One state per file. Snapshot 2026-09-07, e-filed 990-PF returns from 15 posted archives.</p>
+        <ul class="gets">
+          <li>Per funder: assets, revenue, grants paid, contributions, application procedure text where filed, tax period, return id.</li>
+          <li>Grants itemized as filed: recipient, city, state, purpose, amount; placeholder rows counted in the README.</li>
+          <li>CSV and spreadsheet, identical content, plus free 20-row samples of funders and of grants.</li>
+        </ul>
+        <p class="caveat">Honest caveat: e-filed 990-PF returns only, posted in the 15 named archives. Foundations that filed on paper, and e-filers whose return was posted outside that window, are absent. No count of the absent filers is claimed.</p>
+        <ul class="bands">
+          <li><a class="band" href="https://payhip.com/b/0Uaq7"><span class="letter">S</span><span class="price">$29</span><span class="what">50–499 funders with grants · 15 states</span></a></li>
+          <li><a class="band" href="https://payhip.com/b/MtaKk"><span class="letter">M</span><span class="price">$49</span><span class="what">500–2,499 funders with grants · 26 states</span></a></li>
+          <li><a class="band" href="https://payhip.com/b/eP8iV"><span class="letter">L</span><span class="price">$79</span><span class="what">2,500 or more funders with grants · 10 states</span></a></li>
+        </ul>
+        <details>
+          <summary>Disclosures (10)</summary>
+          <ol>
+            <li>Coverage: e-filed 990-PF returns only, posted in the 15 archives from 2025_TEOS_XML_09A to 2026_TEOS_XML_07A. Paper filers and returns posted outside that window are absent; no count of the absent filers is claimed.</li>
+            <li>Approachability: across the 51 listed states 25,674 of 111,619 funders (23.0%) filed Part XV application text and 81,059 (72.6%) state they give only to preselected organisations. Each listing prints its own state's counts.</li>
+            <li>Tax period: one return per foundation, the newest filed. Newest tax periods run 2026-01-31 to 2026-07-31 across listed states; periods in the files run 2022-12-31 to 2026-07-31, 99.7% within 24 months of the snapshot.</li>
+            <li>Mailing state: <code>state</code> is the address the foundation printed on its return, not where it gives. <code>shared_admin_address</code> = Y marks a row at an address shared by 50 or more of that state's funders — a trust company or administrator whose foundations may fund elsewhere: 17,974 funder rows.</li>
+            <li>Part XV free text is cut at the e-file schema character limit where the filer wrote past it, so a long entry ends mid-word.</li>
+            <li>Placeholder recipients: 3,045 of 1,455,674 grant rows (0.21%, worst state 0.42%) name an attachment, a bucket or a number instead of a recipient, because the filer wrote it that way. Each README prints its state's count.</li>
+            <li>Dissolved foundations: <code>final_return</code> = Y where the filer marked the return as its last, 2,739 of 111,619 funder rows (2.45%).</li>
+            <li>Contacts: only the phone, website and Part XV application contact the foundation itself printed on the return. No email column, no officer addresses, no appended or enriched contacts.</li>
+            <li>Compiled from public-domain federal information returns. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used.</li>
+            <li>A free public roster of a state's registered private foundations exists and carries name, address, assets and income; what these files add is grants paid, officers and Part XV application text.</li>
+          </ol>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="sample">
+  <div class="wrap">
+    <h2>Free sample</h2>
+    <p>Header plus 20 rows from each of three files, with the full column list, so you can see the exact format before buying. Snapshot 2026-09-07.</p>
+    <p class="btnrow">
+      <a class="btn" href="https://payhip.com/b/pEsMY">Get the free sample</a>
+      <a class="btn ghost" href="samples/expiring_541512_sample.csv">expiring_541512_sample.csv</a>
+      <a class="btn ghost" href="samples/funders_VT_sample.csv">funders_VT_sample.csv</a>
+      <a class="btn ghost" href="samples/grants_VT_sample.csv">grants_VT_sample.csv</a>
+    </p>
+    <p class="small muted">The three CSVs above download straight from this site — no account, no email, no checkout. The store link is the same three files delivered by email.</p>
+  </div>
+</section>
+
+<section id="verify">
+  <div class="wrap">
+    <h2>Verify any row</h2>
+    <p>Nothing here has to be taken on trust. Every row carries the identifier that resolves it on the official source page.</p>
+    <dl class="verify">
+      <dt>Federal contracts</dt>
+      <dd>Every row links to its official award page in the <code>source_url</code> column; a 25-row audit against the official pages matched at 96% or better. End dates change when agencies modify contracts, so a row is accurate as of the archive date stated on the file.</dd>
+      <dt>Foundation funders</dt>
+      <dd>Every EIN is in the tax authority's e-file index, and each row carries <code>tax_period_end</code> and <code>source_archive</code>. A 25-row audit against the source XML matched at 96% or better, and a 10-funder check against the public record matched at 90% or better.</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Questions</h2>
+    <div class="faq">
+      <h3>The download link failed, or the counts differ from what the page said.</h3>
+      <p>A failed link or a zip that will not open gets a replacement link, then a full refund on request. If the row counts, snapshot date or archive date on the listing differ from the delivered file, that is a full refund with no return needed. Refund window: 14 days from purchase.</p>
+
+      <h3>An end date on the official page differs from the file.</h3>
+      <p>No refund. The file reproduces the published federal archive as of the archive date printed on it, and every row links to its official page so the current date can be read there. Agencies modify contracts after the archive is published.</p>
+
+      <h3>A contract I know about is not in the file.</h3>
+      <p>No refund. Coverage is prime contracts and orders with activity in the current fiscal year, whose period of performance ends inside the window stated on the listing. Every exclusion is on the listing page before purchase.</p>
+
+      <h3>Most of these foundations do not accept applications.</h3>
+      <p>No refund. Each listing prints that state's counts before purchase. Across the 51 listed states, 25,674 of 111,619 funders (23.0%) filed Part XV application text and 81,059 (72.6%) state they give only to preselected organisations.</p>
+
+      <h3>The foundation I wanted is not in the file.</h3>
+      <p>No refund. Only e-filed 990-PF returns posted in the 15 named archives are included. Paper filers and e-filers whose return was posted outside that window are absent, as the disclosures state before purchase.</p>
+
+      <h3>These are 2024 and 2025 tax periods, not this year's grants.</h3>
+      <p>No refund. One return per foundation, the newest filed; foundations file months after their year ends. The tax-period range is printed on the listing and on every row.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mark"><span class="sq"></span>OpenFilings</p>
+    <p>Store: <a href="https://payhip.com/OpenFilings">payhip.com/OpenFilings</a> · Samples repository: <a href="https://github.com/molchalih/openfilings-samples">github.com/molchalih/openfilings-samples</a></p>
+    <p>Licence — samples: public-domain source data, redistributable; reuse them freely, with or without attribution. Purchased files ship with their own <code>LICENSE.txt</code> inside the zip.</p>
+    <p>Compiled from public-domain US federal filings. No federal agency produced, reviewed, approved or endorses these files, and no agency trademark, logo or seal is used. No agency endorses this.</p>
+  </div>
+</footer>
+
+</body>
+</html>
